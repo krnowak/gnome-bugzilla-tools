@@ -162,7 +162,7 @@ sub diffs_cleanup
 
 sub sort_distinct
 {
-  sort List::MoreUtils::distinct (@_);
+  List::MoreUtils::distinct (sort @_);
 }
 
 sub references_diffs
