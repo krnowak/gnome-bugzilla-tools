@@ -33,3 +33,10 @@ applies them to git repo.
 
 Usage:
 - `process_patches_list.sh <patches.list`
+
+in assemble-bugzilla:
+---------------------
+
+`assemble-bugzilla.sh` clones or updates bgo-upstream and
+bgo-customizations repos, checkouts to given branches and copies them
+over to /var/www/html/bugzilla. Highly specific for my own setup.
