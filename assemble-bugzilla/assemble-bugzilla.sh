@@ -1,7 +1,34 @@
 #!/usr/bin/bash -e
 
 current_directory=`pwd`
-repo_dir="${HOME}/repo"
+config="${HOME}/abz.rc"
+
+. "${config}"
+
+if [ -z "${repo_dir}" ]
+then
+    echo "repo_dir variable not set"
+    exit 1
+fi
+
+if [ -z "${www}" ]
+then
+    echo "www variable not set"
+    exit 1
+fi
+
+if [ -z "${remote_repo_upstream}" ]
+then
+    echo "remote_repo_upstream variable not set"
+    exit 1
+fi
+
+if [ -z "${remote_repo_customizations}" ]
+then
+    echo "remote_repo_customizations variable not set"
+    exit 1
+fi
+
 upstream_last_branch="${repo_dir}/upstream-last-branch"
 customizations_last_branch="${repo_dir}/customizations-last-branch"
 upstream_branch=''
@@ -61,7 +88,6 @@ bgo_upstream='bugzilla-gnome-org-upstream'
 bgo_customizations='bugzilla-gnome-org-customizations'
 repo_dir_upstream="${repo_dir}/${bgo_upstream}"
 repo_dir_customizations="${repo_dir}/${bgo_customizations}"
-www='/var/www/html/bugzilla'
 
 if [ -d "${repo_dir}" ]
 then
@@ -74,11 +100,11 @@ then
 else
     mkdir -p "${HOME}/repo"
 
-    git clone https://github.com/krnowak/bugzilla-gnome-org-upstream.git "${repo_dir_upstream}"
+    git clone "${remote_repo_upstream}" "${repo_dir_upstream}"
     cd "${repo_dir_upstream}"
     git checkout "${upstream_branch}"
 
-    git clone https://github.com/krnowak/bugzilla-gnome-org-customizations.git "${repo_dir_customizations}"
+    git clone "${remote_repo_customizations}" "${repo_dir_customizations}"
     cd "${repo_dir_customizations}"
     git checkout "${customizations_branch}"
 fi

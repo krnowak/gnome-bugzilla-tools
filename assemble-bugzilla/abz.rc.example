@@ -1,0 +1,4 @@
+repo_dir="${HOME}/repo"
+www='/var/www/html/bugzilla'
+remote_repo_upstream='https://github.com/krnowak/bugzilla-gnome-org-upstream.git'
+remote_repo_customizations='https://github.com/krnowak/bugzilla-gnome-org-customizations.git'
