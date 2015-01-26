@@ -1,4 +1,10 @@
+# Where to keep git repos and helper files
 repo_dir="${HOME}/repo"
+# Bugzilla assemble destination
 www='/var/www/html/bugzilla'
+# Upstream repo URL
 remote_repo_upstream='https://github.com/krnowak/bugzilla-gnome-org-upstream.git'
+# Customizations repo URL
 remote_repo_customizations='https://github.com/krnowak/bugzilla-gnome-org-customizations.git'
+# Directory to keep localconfig, data and answers as a backup
+bugzilla_files="${HOME}/bugzilla-files"

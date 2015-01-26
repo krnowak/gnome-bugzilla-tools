@@ -29,6 +29,12 @@ then
     exit 1
 fi
 
+if [ -z "${bugzilla_files}" ]
+then
+    echo "bugzilla_files variable not set"
+    exit 1
+fi
+
 upstream_last_branch="${repo_dir}/upstream-last-branch"
 customizations_last_branch="${repo_dir}/customizations-last-branch"
 upstream_branch=''
@@ -123,8 +129,21 @@ fi
 old_customizations_branch=`cat "${customizations_last_branch}"`
 echo "${customizations_branch}" >"${customizations_last_branch}"
 
+recreate_dir='no'
+
 if [ "${upstream_branch}" != "${old_upstream_branch}" -o "${customizations_branch}" != "${old_customizations_branch}" ]
 then
+    recreate_dir='yes'
+fi
+
+if [ "${recreate_dir}" = 'yes' ]
+then
+    if [ -f "${www}/localconfig" -a -f "${www}/answers" -a -d "${www}/data" ]
+    then
+	rm -rf "${bugzilla_files}"
+	mkdir -p "${bugzilla_files}"
+	cp -r "${www}"/{localconfig,answers,data} "${bugzilla_files}"
+    fi
     rm -rf "${www}"
 fi
 
@@ -133,11 +152,12 @@ rm -rf "${www}/.git"
 cp -r "${repo_dir_customizations}"/* "${www}"
 rm -rf "${www}/.git"
 
-if [ "${upstream_branch}" != "${old_upstream_branch}" -o "${customizations_branch}" != "${old_customizations_branch}" ]
+if [ "${recreate_dir}" = 'yes' ]
 then
-    cp -r "${HOME}/bugzilla-files/"{localconfig,answers,data} "${www}"
+    cp -r "${bugzilla_files}"/{localconfig,answers,data} "${www}"
 fi
 
 cd "${www}"
 ./checksetup.pl --verbose answers
 cd "${current_directory}"
+echo 'bugzilla assemble done'
