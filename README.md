@@ -40,3 +40,10 @@ in assemble-bugzilla:
 `assemble-bugzilla.sh` clones or updates bgo-upstream and
 bgo-customizations repos, checkouts to given branches and copies them
 over to /var/www/html/bugzilla. Highly specific for my own setup.
+
+in schema-integrity-checker:
+----------------------------
+
+`schema-integrity-checker.pl` is an unfinished tool for checking if
+database schema is really correctly described by `bz_schema`. It is
+currently working partially for mysql.
