@@ -99,9 +99,11 @@ if [ -d "${repo_dir}" ]
 then
     cd "${repo_dir_upstream}"
     git fetch origin
+    git branch -D "${upstream_branch}"
     git checkout "${upstream_branch}"
     cd "${repo_dir_customizations}"
     git fetch origin
+    git branch -D "${upstream_branch}"
     git checkout "${customizations_branch}"
 else
     mkdir -p "${HOME}/repo"
