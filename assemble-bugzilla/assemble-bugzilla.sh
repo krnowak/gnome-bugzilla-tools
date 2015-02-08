@@ -100,12 +100,12 @@ then
     cd "${repo_dir_upstream}"
     git fetch origin
     git checkout origin/"${upstream_branch}"
-    git branch -D "${upstream_branch}"
+    git branch -D "${upstream_branch}" || :
     git checkout -b "${upstream_branch}"
     cd "${repo_dir_customizations}"
     git fetch origin
     git checkout origin/"${customizations_branch}"
-    git branch -D "${customizations_branch}"
+    git branch -D "${customizations_branch}" || :
     git checkout -b "${customizations_branch}"
 else
     mkdir -p "${HOME}/repo"
